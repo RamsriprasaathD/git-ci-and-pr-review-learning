@@ -1,0 +1,25 @@
+name: Deploy Landing Page
+
+on:
+  push:
+    branches:
+      - main   # Change branch if needed (e.g., 'master')
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .   # Upload everything (your index.html should be at repo root)
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
