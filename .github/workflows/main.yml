@@ -1,25 +1,26 @@
-name: Deploy Landing Page
+name: Sample Workflow
 
 on:
   push:
     branches:
-      - main   # Change branch if needed (e.g., 'master')
+      - main   # or "master"
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+      - name: List project files
+        run: ls -R
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: .   # Upload everything (your index.html should be at repo root)
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Validate HTML file exists
+        run: |
+          if [ ! -f index.html ]; then
+            echo "❌ index.html not found!"
+            exit 1
+          else
+            echo "✅ index.html found!"
+          fi
